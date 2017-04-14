@@ -623,7 +623,8 @@ public class TokenType
 			                                                  "rel",
 			                                                  "a",
 			                                                  "area",
-			                                                  "link"
+			                                                  "link",
+	                                                          "meta"
 	                                                  },
 	                                                  {
 			                                                  "required",
