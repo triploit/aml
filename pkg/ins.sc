@@ -1,5 +1,7 @@
 func install
 {
+	ls
+	pwd
 	sudo mv out/artifacts/AML_jar/AML.jar /usr/bin/AML.jar
 	sudo mv aml /usr/bin/aml
 }
