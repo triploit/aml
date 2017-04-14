@@ -623,8 +623,7 @@ public class TokenType
 			                                                  "rel",
 			                                                  "a",
 			                                                  "area",
-			                                                  "link",
-	                                                          "meta"
+			                                                  "link"
 	                                                  },
 	                                                  {
 			                                                  "required",
@@ -753,7 +752,8 @@ public class TokenType
 			                                                  "script",
 			                                                  "source",
 			                                                  "style",
-			                                                  "menu"
+			                                                  "menu",
+			                                                  "link"
 	                                                  },
 	                                                  {
 			                                                  "usemap",
