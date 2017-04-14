@@ -1,0 +1,30 @@
+html
+{
+    head
+    {
+        script(src: "https://example.com/example.js") {}
+
+        style(src: "https://example.com/example.css") {}
+
+        style
+        {
+            "
+            .d
+            {
+                color: green;
+            }
+            "
+        }
+    }
+
+    body
+    {
+        div(class: "d")
+        {
+            p
+            {
+                "This is a text " br{} "in a paragraph."
+            }
+        }
+    }
+}
