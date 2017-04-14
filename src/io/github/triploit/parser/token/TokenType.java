@@ -15,7 +15,8 @@ public class TokenType
 		PARENTHIS_CLOSE,
 		DOUBLE_POINT,
 		NEW_LINE,
-		WORD
+		WORD,
+		COMMA
 	}
 
 	public static final TOKEN_TYPES getRightType(String value)
@@ -36,6 +37,8 @@ public class TokenType
 			return TOKEN_TYPES.PARENTHIS_CLOSE;
 		else if (value.equals(":"))
 			return TOKEN_TYPES.DOUBLE_POINT;
+		else if (value.equals(","))
+			return TOKEN_TYPES.COMMA;
 		else
 			return TOKEN_TYPES.WORD;
 	}

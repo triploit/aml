@@ -63,9 +63,7 @@ public class Tokenizer
 						continue;
 					}
 
-					if (code.charAt(i) == ' ' ||
-							code.charAt(i) == ';' ||
-							code.charAt(i) == '\n')
+					if (isIgnore(code.charAt(i)))
 					{
 						if (tmp != null &&
 								tmp.length() != 0 &&
@@ -113,6 +111,25 @@ public class Tokenizer
 			case ')':
 				return true;
 			case ':':
+				return true;
+			case '\"':
+				return true;
+			default:
+				return false;
+		}
+	}
+
+	public static boolean isIgnore(char c)
+	{
+		switch (c)
+		{
+			case ' ':
+				return true;
+			case ',':
+				return true;
+			case ';':
+				return true;
+			case '\n':
 				return true;
 			default:
 				return false;
