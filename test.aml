@@ -2,6 +2,8 @@ html
 {
     head
     {
+        title { "Hello World" }
+
         script(src: "https://example.com/example.js") {}
 
         style(src: "https://example.com/example.css") {}
