@@ -66,6 +66,9 @@ public class Parser
 			}
 			else if (toks[i].getType() == TokenType.TOKEN_TYPES.BRACE_OPEN)
 			{
+				if (tags.size() == 0)
+					error("Syntax Error! Missing Tag!?");
+
 				String tag = tags.get(tags.size() - 1);
 
 				if (!TokenType.existsTag(tag))
