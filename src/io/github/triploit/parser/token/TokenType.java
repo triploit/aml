@@ -185,7 +185,8 @@ public class TokenType
 			"meta",
 			"br",
 			"hr",
-			"p"
+			"p",
+	        "title"
 	};
 
 	private static final String[][] ATTRIBUTE_LIST = { // Attribute, Tag, Tag2, Tag3, ...
