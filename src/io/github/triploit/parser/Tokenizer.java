@@ -47,9 +47,18 @@ public class Tokenizer
 				{
 					if (isStr)
 					{
-						if (code.charAt(i) == '~' && code.charAt(i-1) != '\\')
+						if (code.charAt(i) == '~')
 						{
-							tmp += "~\\n~";
+							if (code.length() >= 1 && i >= 1)
+							{
+								if (code.charAt(i-1) != '\\')
+								{
+									tmp += "~\\n~";
+								}
+							}
+							else
+								tmp += "~\\n~";
+
 							continue;
 						}
 
