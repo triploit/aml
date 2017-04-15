@@ -21,7 +21,7 @@ public class Parser
 
 		for (int i = 0; i < toks.length; i++)
 		{
-			System.out.println("TOKEN: "+toks[i].getValue()+"\t\t/\t"+toks[i].getType());
+			// System.out.println("TOKEN: "+toks[i].getValue()+"\t\t/\t"+toks[i].getType());
 
 			if (toks[i].getType() == TokenType.TOKEN_TYPES.NEW_LINE)
 			{
@@ -54,8 +54,8 @@ public class Parser
 				{
 					value = toks[i + 1].getValue();
 
-					attributes = attributes + " " + attr.replace(":", "") + "=\"" + value + "\"";
-					i+=2;
+					attributes = attributes + " " + attr.replace(":", "") + "=" + value + "";
+					i+=1;
 					continue;
 				}
 			}
