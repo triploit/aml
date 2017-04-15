@@ -23,7 +23,8 @@ public class TokenType
 	{
 		value = value.trim();
 
-		if (value.startsWith("\"") && value.endsWith("\""))
+		if ((value.startsWith("\"") && value.endsWith("\"")) ||
+				(value.startsWith("\'") && value.endsWith("\'")) )
 			return TOKEN_TYPES.WORD;
 		else if (value.equals("{"))
 			return TOKEN_TYPES.BRACE_OPEN;

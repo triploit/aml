@@ -50,6 +50,7 @@ public class Main
 
 				code = code.replace("~\\n~", "\n");
 				code = code.replace("~\\t~", "\t");
+				code = code.replace("\\\"", "\"");
 
 				System.out.println("[]=====================[ CODE BEGIN: "+arg+" ]=====================[]");
 				System.out.println(code);
