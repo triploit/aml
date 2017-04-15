@@ -21,6 +21,8 @@ public class Parser
 
 		for (int i = 0; i < toks.length; i++)
 		{
+			System.out.println("TOKEN: "+toks[i].getValue()+"\t\t/\t"+toks[i].getType());
+
 			if (toks[i].getType() == TokenType.TOKEN_TYPES.NEW_LINE)
 			{
 				line++;
@@ -41,27 +43,20 @@ public class Parser
 			}
 			else if (toks[i].getType() == TokenType.TOKEN_TYPES.ATTRIBUTE && parenthis)
 			{
-				if (TokenType.isRightAttribut(toks[i].getValue(), tags.get(tags.size() - 1)))
+				String attr = toks[i].getValue();
+				String value = "";
+
+				if (!attr.endsWith(":"))
 				{
-					String attr = toks[i].getValue();
-					String value = "";
-
-					if (toks[i + 1].getType() != TokenType.TOKEN_TYPES.DOUBLE_POINT)
-					{
-						error("Syntaxerror!");
-					}
-					else
-					{
-						value = toks[i + 2].getValue();
-
-						attributes = attributes + " " + attr + "=\"" + value + "\"";
-						i+=2;
-						continue;
-					}
+					error("Syntaxerror!");
 				}
 				else
 				{
-					error("Error: The attribute " + toks[i].getValue() + " doesn't likes " + tags.get(tags.size() - 1) + "!");
+					value = toks[i + 1].getValue();
+
+					attributes = attributes + " " + attr.replace(":", "") + "=\"" + value + "\"";
+					i+=2;
+					continue;
 				}
 			}
 			else if (toks[i].getType() == TokenType.TOKEN_TYPES.BRACE_OPEN)
@@ -70,11 +65,6 @@ public class Parser
 					error("Syntax Error! Missing Tag!?");
 
 				String tag = tags.get(tags.size() - 1);
-
-				if (!TokenType.existsTag(tag))
-				{
-					error(tag+" is a invalid tag!");
-				}
 
 				if (!code.endsWith("\n"))
 					code = code + "\n";
@@ -104,7 +94,7 @@ public class Parser
 				tags.remove(tags.size() - 1);
 			}
 			else if (toks[i].getType() == TokenType.TOKEN_TYPES.WORD)
-				code = code + toks[i].getValue();
+				code = code + toks[i].getValue().substring(1, toks[i].getValue().length()-1);
 		}
 	}
 

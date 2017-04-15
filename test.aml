@@ -2,20 +2,9 @@ html
 {
     head
     {
-        meta(charset: "utf-8"){}
-        meta(name: "viewport", content: "width=device-width, initial-scale=1"){}
-
-        link (href: "//fonts.googleapis.com/css?family=Raleway:400,300,600"){}
-        link (rel: "stylesheet", href: "../css/normalize.css"){}
-        link (rel: "stylesheet", href: "../css/skeleton.css"){}
-        link (rel: "icon", type: "image/png", href: "../images/favicon.png"){}
-
-        script (src: "js/prism.js"){}
-        link (rel: "stylesheet", href: "../css/prism.css"){}
-        link (rel: "stylesheet", href: "../css/global.css"){}
-
         style
-        {"
+        {
+        "
             div.logo
             {
                 width: 800px;
@@ -25,54 +14,15 @@ html
             {
                 margin-top: 7%;
             }
-        "}
+        "
+        }
     }
 
     body
     {
         div (class: "container")
         {
-            div (class: "row")
-            {
-                img (src: "../images/logo.png", class: "logo"){}
-            }
-
-            div (class: "line") {}
-        }
-
-
-        div(class: "container")
-        {
-            div (class: "row")
-            {
-                div (id: "nav")
-                {
-                    a (class: "menu", href: "index.html") {"Home"}
-                    a (class: "menu", href: "basm.html") {"BASM"}
-                    a (class: "menu", href: "nypp.html") {"Ny++5"}
-                    a (class: "menu", href: "tricl.html") {"TRICL"}
-                    a (class: "menu", href: "secpm.html") {"SecPM"}
-                    a (class: "menu", href: "team.html") {"Team"}
-                    a (class: "menu", href: "tbi3.html") {"TBI3"}
-                    a (class: "menu", href: "tpl.html") {"TPL"}
-                }
-            }
-        }
-
-        div (class: "container")
-        {
-            div (class: "row")
-            {
-                div (class: "one-half column")
-                {
-                    h4 { "AML" }
-
-                    p
-                    {"
-                        Diese Seite wurde komplett mit AML generiert!
-                    "}
-                }
-            }
+            "Hello World"
         }
     }
 }

@@ -28,20 +28,27 @@ public class Tokenizer
 			{
 				if (code.charAt(i) == '\"')
 				{
-					if (isStr)
+					if (code.charAt(i-1) != '\\')
 					{
+						tmp += code.charAt(i);
 
-						if (tmp != null &&
-								tmp.length() != 0 &&
-								tmp != "")
-							tokens.add((new Token(TokenType.TOKEN_TYPES.WORD, tmp)));
+						if (isStr)
+						{
 
-						tmp = "";
+							if (tmp != null &&
+									tmp.length() != 0 &&
+									tmp != "")
+								tokens.add((new Token(TokenType.TOKEN_TYPES.WORD, tmp)));
 
-						isStr = false;
+							tmp = "";
+
+							isStr = false;
+						}
+						else
+							isStr = true;
 					}
 					else
-						isStr = true;
+						tmp += code.charAt(i);
 				}
 				else
 				{
@@ -118,8 +125,6 @@ public class Tokenizer
 			case '(':
 				return true;
 			case ')':
-				return true;
-			case ':':
 				return true;
 			case '\"':
 				return true;
