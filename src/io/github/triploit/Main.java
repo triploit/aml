@@ -31,7 +31,7 @@ public class Main
 
 					while ((line = br.readLine()) != null)
 					{
-						code = code + line + "~\n";
+						code = code + line + "\n";
 					}
 				}
 				catch (FileNotFoundException e)

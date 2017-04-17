@@ -94,7 +94,14 @@ public class Parser
 				tags.remove(tags.size() - 1);
 			}
 			else if (toks[i].getType() == TokenType.TOKEN_TYPES.WORD)
-				code = code + toks[i].getValue().substring(1, toks[i].getValue().length()-1);
+			{
+				System.out.println("TOK: "+toks[i].getValue());
+
+				if (toks[i].getValue().length() < 2)
+					return;
+
+				code = code + toks[i].getValue().substring(1, toks[i].getValue().length() - 1);
+			}
 		}
 	}
 

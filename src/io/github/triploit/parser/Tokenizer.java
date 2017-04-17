@@ -14,99 +14,94 @@ public class Tokenizer
 	public static ArrayList<Token> tokenize(String code)
 	{
 		code = code.trim();
-		String[] lines = code.split("\n");
+		code = code.replace("\n", "~");
 		boolean isStr = false;
 
 		String tmp = "";
 		ArrayList<Token> tokens = new ArrayList<>();
 
-		for (String line : Arrays.asList(lines))
+		for (int i = 0; i < code.length(); i++)
 		{
-			code = line;
-
-			for (int i = 0; i < code.length(); i++)
+			if (code.charAt(i) == '\"')
 			{
-				if (code.charAt(i) == '\"')
+				if ((i-1) >= 0 && code.charAt(i-1) != '\\')
 				{
-					if (code.charAt(i-1) != '\\')
+					tmp += code.charAt(i);
+
+					if (isStr)
 					{
-						tmp += code.charAt(i);
 
-						if (isStr)
-						{
+						if (tmp != null &&
+								tmp.length() != 0 &&
+								tmp != "")
+							tokens.add((new Token(TokenType.TOKEN_TYPES.WORD, tmp)));
 
-							if (tmp != null &&
-									tmp.length() != 0 &&
-									tmp != "")
-								tokens.add((new Token(TokenType.TOKEN_TYPES.WORD, tmp)));
+						tmp = "";
 
-							tmp = "";
-
-							isStr = false;
-						}
-						else
-							isStr = true;
+						isStr = false;
 					}
 					else
-						tmp += code.charAt(i);
+						isStr = true;
+				}
+				else
+					tmp += code.charAt(i);
+			}
+			else
+			{
+				if (isStr)
+				{
+					if (code.charAt(i) == '~')
+					{
+						if (code.length() >= 1 && i >= 1)
+						{
+							if (code.charAt(i-1) != '\\')
+							{
+								tmp += "~\\n~";
+							}
+						}
+						else
+							tmp += "~\\n~";
+
+						continue;
+					}
+
+					tmp += code.charAt(i);
+					continue;
+				}
+
+				if (code.charAt(i) == '~')
+				{
+					tokens.add((new Token(TokenType.TOKEN_TYPES.NEW_LINE, null)));
+					continue;
+				}
+
+				if (isIgnore(code.charAt(i)))
+				{
+					if (tmp != null &&
+							tmp.length() != 0 &&
+							tmp != "")
+						tokens.add((new Token(TokenType.getRightType(tmp), tmp)));
+					tmp = "";
+				}
+				else if (isSpecial(code.charAt(i)))
+				{
+					if (tmp != null &&
+							tmp.length() != 0 &&
+							tmp != "")
+						tokens.add((new Token(TokenType.getRightType(tmp), tmp)));
+
+					tmp = ""+code.charAt(i);
+
+					if (tmp != null &&
+							tmp.length() != 0 &&
+							tmp != "")
+						tokens.add((new Token(TokenType.getRightType(tmp), tmp)));
+
+					tmp = "";
 				}
 				else
 				{
-					if (isStr)
-					{
-						if (code.charAt(i) == '~')
-						{
-							if (code.length() >= 1 && i >= 1)
-							{
-								if (code.charAt(i-1) != '\\')
-								{
-									tmp += "~\\n~";
-								}
-							}
-							else
-								tmp += "~\\n~";
-
-							continue;
-						}
-
-						tmp += code.charAt(i);
-						continue;
-					}
-
-					if (code.charAt(i) == '~')
-					{
-						tokens.add((new Token(TokenType.TOKEN_TYPES.NEW_LINE, null)));
-						continue;
-					}
-
-					if (isIgnore(code.charAt(i)))
-					{
-						if (tmp != null &&
-								tmp.length() != 0 &&
-								tmp != "")
-							tokens.add((new Token(TokenType.getRightType(tmp), tmp)));
-						tmp = "";
-					}
-					else if (isSpecial(code.charAt(i)))
-					{
-						if (tmp != null &&
-								tmp.length() != 0 &&
-								tmp != "")
-							tokens.add((new Token(TokenType.getRightType(tmp), tmp)));
-
-						tmp = ""+code.charAt(i);
-
-						if (tmp != null &&
-								tmp.length() != 0 &&
-								tmp != "")
-							tokens.add((new Token(TokenType.getRightType(tmp), tmp)));
-
-						tmp = "";
-					}
-					else
-					{
-						tmp += code.charAt(i);
-					}
+					tmp += code.charAt(i);
 				}
 			}
 		}
@@ -138,6 +133,8 @@ public class Tokenizer
 		switch (c)
 		{
 			case ' ':
+				return true;
+			case '\t':
 				return true;
 			case ',':
 				return true;
