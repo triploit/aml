@@ -26,6 +26,12 @@ public class Main
 
 				try
 				{
+					if ((new File(arg)).isDirectory())
+					{
+						System.out.println("Error: The \"file\" is a directory!");
+						return;
+					}
+
 					BufferedReader br = new BufferedReader(new FileReader(arg));
 					String line;
 

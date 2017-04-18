@@ -4,7 +4,6 @@ html
     {
         style
         {
-
             div.logo
             {
                 width: 800px;
@@ -20,7 +19,6 @@ html
                 color: green;
                 font-size: 20px;
             }
-
         }
     }
 
@@ -33,7 +31,6 @@ html
                 alert("Hello: "+i+"/10");
             }
         }
-
 
         div (class: "container")
         {
