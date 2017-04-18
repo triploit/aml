@@ -50,11 +50,12 @@ public class Main
 
 				code = code.replace("~\\n~", "\n");
 				code = code.replace("~\\t~", "\t");
-				code = code.replace("\\\"", "\"");
 
-				System.out.println("[]=====================[ CODE BEGIN: "+arg+" ]=====================[]");
+				/* System.out.println("[]=====================[ CODE BEGIN: "+arg+" ]=====================[]");
 				System.out.println(code);
-				System.out.println("[]=====================[ CODE END: "+arg+" ]=====================[]");
+				System.out.println("[]=====================[ CODE END: "+arg+" ]=====================[]"); */
+
+				System.out.println("Saved in: "+arg.replace(".aml", ".html"));
 
 				try
 				{

@@ -71,7 +71,7 @@ public class Tokenizer
 
 				if (code.charAt(i) == '~')
 				{
-					tokens.add((new Token(TokenType.TOKEN_TYPES.NEW_LINE, null)));
+					tokens.add((new Token(TokenType.TOKEN_TYPES.NEW_LINE, "\n")));
 					continue;
 				}
 
@@ -81,6 +81,9 @@ public class Tokenizer
 							tmp.length() != 0 &&
 							tmp != "")
 						tokens.add((new Token(TokenType.getRightType(tmp), tmp)));
+
+					tmp = ""+code.charAt(i);
+					tokens.add((new Token(TokenType.getRightType(tmp), tmp)));
 					tmp = "";
 				}
 				else if (isSpecial(code.charAt(i)))

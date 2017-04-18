@@ -11,7 +11,6 @@ public class Parser
 	private static String attributes = "";
 	private static int line = 1;
 	public static String code = "";
-	private static boolean parenthis = false;
 
 	public static void parse(final ArrayList<Token> tokens)
 	{
@@ -19,9 +18,17 @@ public class Parser
 		Token[] toks = new Token[tokens.size()];
 		toks = tokens.toArray(toks);
 
+		boolean script = false;
+		boolean php = false;
+		int brace = 0;
+		int parenthis = 0;
+
 		for (int i = 0; i < toks.length; i++)
 		{
-			// System.out.println("TOKEN: "+toks[i].getValue()+"\t\t/\t"+toks[i].getType());
+			if (toks[i].getType() == TokenType.TOKEN_TYPES.IGNORE)
+				continue;
+
+			// System.out.println("TOKEN: <"+toks[i].getValue()+", "+toks[i].getType()+">");
 
 			if (toks[i].getType() == TokenType.TOKEN_TYPES.NEW_LINE)
 			{
@@ -35,13 +42,13 @@ public class Parser
 			}
 			else if (toks[i].getType() == TokenType.TOKEN_TYPES.PARENTHIS_OPEN)
 			{
-				parenthis = true;
+				parenthis++;
 			}
 			else if (toks[i].getType() == TokenType.TOKEN_TYPES.PARENTHIS_CLOSE)
 			{
-				parenthis = false;
+				parenthis--;
 			}
-			else if (toks[i].getType() == TokenType.TOKEN_TYPES.ATTRIBUTE && parenthis)
+			else if (toks[i].getType() == TokenType.TOKEN_TYPES.ATTRIBUTE && parenthis >= 1)
 			{
 				String attr = toks[i].getValue();
 				String value = "";
@@ -52,15 +59,18 @@ public class Parser
 				}
 				else
 				{
+					i = ignore_spaces(toks, i);
 					value = toks[i + 1].getValue();
 
 					attributes = attributes + " " + attr.replace(":", "") + "=" + value + "";
-					i+=1;
+					i += 1;
 					continue;
 				}
 			}
 			else if (toks[i].getType() == TokenType.TOKEN_TYPES.BRACE_OPEN)
 			{
+				brace++;
+
 				if (tags.size() == 0)
 					error("Syntax Error! Missing Tag!?");
 
@@ -74,40 +84,121 @@ public class Parser
 					code = code + "\t";
 				}
 
-				code = code + "<" + tag + attributes + ">\n";
+				if (tag.equalsIgnoreCase("script") || tag.equalsIgnoreCase("style") || tag.equalsIgnoreCase("php"))
+				{
+					if (tag.equalsIgnoreCase("php"))
+						code = code + "<php?\n";
+					else
+						code = code + "<" + tag + attributes + ">\n";
+					i++;
+					code = tab(code, tags)+"\t";
+
+					for (int c = 1; c > 0; i++)
+					{
+						if (toks[i].getType() == TokenType.TOKEN_TYPES.IGNORE)
+						{
+							code += toks[i].getValue();
+							i = ignore_spaces(toks, i) - 1;
+						}
+
+						if (toks[i].getType() == TokenType.TOKEN_TYPES.NEW_LINE)
+						{
+							line++;
+							continue;
+						}
+
+						if (toks[i].getType() == TokenType.TOKEN_TYPES.BRACE_CLOSE)
+						{
+							c--;
+
+							if (c == 0)
+								brace--;
+						}
+						else if (toks[i].getType() == TokenType.TOKEN_TYPES.BRACE_OPEN)
+						{
+							c++;
+						}
+
+						if (c != 0)
+						{
+							code += toks[i].getValue();
+						}
+					}
+
+					code += "\n";
+					code = tab(code, tags);
+
+					if (tag.equalsIgnoreCase("php")) code = code + "?>\n";
+					else code = code + "</" + tag + ">\n";
+					tags.remove(tags.size() - 1);
+				}
+				else
+					code = code + "<" + tag + attributes + ">\n";
+
 				attributes = "";
 			}
 			else if (toks[i].getType() == TokenType.TOKEN_TYPES.BRACE_CLOSE)
 			{
+				brace--;
+				String tag = tags.get(tags.size() - 1);
+
 				if (tags.size() == 0)
 					return;
 
 				if (!code.endsWith("\n"))
 					code = code + "\n";
 
-				for (int c = 1; c < tags.size(); c++)
-				{
-					code = code + "\t";
-				}
+				code = tab(code, tags);
 
-				code = code + "</" + tags.get(tags.size() - 1) + ">\n";
+				code = code + "</" + tag + ">\n";
 				tags.remove(tags.size() - 1);
 			}
 			else if (toks[i].getType() == TokenType.TOKEN_TYPES.WORD)
 			{
-				System.out.println("TOK: "+toks[i].getValue());
-
 				if (toks[i].getValue().length() < 2)
 					return;
 
-				code = code + toks[i].getValue().substring(1, toks[i].getValue().length() - 1);
+				String word = toks[i].getValue().substring(1, toks[i].getValue().length() - 1);
+				word = word.replace("\\\"", "\"");
+				word = word.replace("\\t", "\t");
+
+				word = word.replace("\\n", "<br>");
+				code = code + word;
 			}
 		}
+
+		if (parenthis != 0)
+			error("You forgot to close/open a parenthis!");
+
+		if (brace < 0)
+			error("You have to few \"{\" !");
+		else if (brace > 0)
+			error("You have to few  \"}\" !");
+	}
+
+	private static int ignore_spaces(Token[] toks, int i)
+	{
+		for (; toks[i].getType() == TokenType.TOKEN_TYPES.IGNORE ||
+				toks[i].getValue().equals(" "); i++)
+		{
+		}
+
+		return i + 1;
+	}
+
+	private static String tab(String code, ArrayList<String> tags)
+	{
+		for (int c = 1; c < tags.size(); c++)
+		{
+			code = code + "\t";
+		}
+
+		return code;
 	}
 
 	public static void error(String msg)
 	{
-		System.out.println("Error --: "+msg);
+		System.out.println("Error --: " + msg);
 		System.out.println("Line ---: " + line);
 		System.exit(1);
 	}
