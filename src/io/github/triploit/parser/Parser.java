@@ -87,11 +87,11 @@ public class Parser
 				if (tag.equalsIgnoreCase("script") || tag.equalsIgnoreCase("style") || tag.equalsIgnoreCase("php"))
 				{
 					if (tag.equalsIgnoreCase("php"))
-						code = code + "<php?\n";
+						code = code + "<php?";
 					else
-						code = code + "<" + tag + attributes + ">\n";
+						code = code + "<" + tag + attributes + ">";
 					i++;
-					code = tab(code, tags)+"\t";
+					code = tab(code, tags.size()) + "\t";
 
 					for (int c = 1; c > 0; i++)
 					{
@@ -99,6 +99,18 @@ public class Parser
 						{
 							code += toks[i].getValue();
 							i = ignore_spaces(toks, i) - 1;
+						}
+
+						if (toks[i].getValue().equals("\n"))
+						{
+							i++;
+							i = ignore_spaces(toks, i) - 1;
+							code += "\n";
+
+							if (toks[i].getType() == TokenType.TOKEN_TYPES.BRACE_CLOSE)
+								code = tab(code, tags.size()+c-1);
+							else
+								code = tab(code, tags.size()+c);
 						}
 
 						if (toks[i].getType() == TokenType.TOKEN_TYPES.NEW_LINE)
@@ -125,9 +137,6 @@ public class Parser
 						}
 					}
 
-					code += "\n";
-					code = tab(code, tags);
-
 					if (tag.equalsIgnoreCase("php")) code = code + "?>\n";
 					else code = code + "</" + tag + ">\n";
 					tags.remove(tags.size() - 1);
@@ -148,7 +157,7 @@ public class Parser
 				if (!code.endsWith("\n"))
 					code = code + "\n";
 
-				code = tab(code, tags);
+				code = tab(code, tags.size());
 
 				code = code + "</" + tag + ">\n";
 				tags.remove(tags.size() - 1);
@@ -186,9 +195,9 @@ public class Parser
 		return i + 1;
 	}
 
-	private static String tab(String code, ArrayList<String> tags)
+	private static String tab(String code, int size)
 	{
-		for (int c = 1; c < tags.size(); c++)
+		for (int c = 1; c < size; c++)
 		{
 			code = code + "\t";
 		}
