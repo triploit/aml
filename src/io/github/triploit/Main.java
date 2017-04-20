@@ -39,8 +39,9 @@ public class Main
 				Parser.parse(Tokenizer.tokenize(code));
 				code = Parser.code;
 
-				code = code.replace("~\\n~", "\n");
-				code = code.replace("~\\t~", "\t");
+                code = code.replace("~\\n~", "\n");
+                code = code.replace("~<br>~", "\n");
+                code = code.replace("~\\t~", "\t");
 
 				/* System.out.println("[]=====================[ CODE BEGIN: "+arg+" ]=====================[]");
 				System.out.println(code);
