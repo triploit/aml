@@ -24,6 +24,12 @@ public class Main
 		{
 			for (String arg : args)
 			{
+			    if (arg.equalsIgnoreCase("-v"))
+                {
+                    System.out.println("AML 0.0.1");
+                    continue;
+                }
+
 			    files.clear();
 				String code = "";
 				System.out.println("MAIN: Processing "+arg+" ...");
