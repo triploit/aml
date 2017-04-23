@@ -44,3 +44,80 @@ Für Windows:
 * out/artifacts/AML_jar/AML.jar nach C:\Windows\System32 verschieben
 
 Das wars! "aml" kann man nun von der Konsole aus aufrufen.
+
+## Hello-World in AML and HTML
+
+    html
+    {
+        head
+        {
+            style
+            {
+                div.container
+                {
+                    color: green;
+                    font-size: 20px;
+                }
+            }
+        }
+
+        body
+        {
+            script
+            {
+                for (i = 1;i <= 10;i++)
+                {
+                    alert("Hello: "+i+"/10");
+                }
+            }
+
+            div (class: "container")
+            {
+                "Hello World\nHi!\n"
+                "d"
+            }
+        }
+    }
+    
+That will produce this HTML code:
+
+    <html>
+
+        <head>
+
+            <style>			
+                div.logo {
+                    width: 800px;
+                }
+
+                div.one-half {
+                    margin-top: 7%;
+                }
+
+                div.container {
+                    color: green;
+                    font-size: 20px;
+                }
+            </style>
+
+        </head>
+
+        <body>
+
+            <script>			
+                for (i = 1;i <= 10;i++)
+                {
+                    alert("Hello: "+i+"/10");
+                }
+            </script>
+
+            <div class="container">
+
+    Hello World<br>Hi!<br>d
+            </div>
+
+        </body>
+
+    </html>
+
+
