@@ -91,7 +91,7 @@ public class Main
 		{
 			if (file.isDirectory())
 			{
-				System.out.println("FILE_READER: Error: The \"file\" is a directory!");
+				System.out.println("FILE_READER: Error: The \""+file.getName()+"\" is a directory!");
 				return "";
 			}
 
@@ -114,7 +114,7 @@ public class Main
 		}
 		catch (FileNotFoundException e)
 		{
-			System.out.println("FILE_READER: Error: File not found!");
+			System.out.println("FILE_READER: Error: File "+file.getName()+" not found!");
 			return "";
 		}
 		catch (IOException e)
@@ -172,7 +172,6 @@ public class Main
 					}
 
 					code = code + _read_file(val);
-					System.out.println("VALUE: "+code);
 				}
 
 				continue;
