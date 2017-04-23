@@ -13,11 +13,14 @@ import java.util.ArrayList;
  */
 public class Main
 {
-	public static ArrayList<String> files = new ArrayList<>();
-	public static String code = "";
-	public static File _afile;
-	public static String _afile_name = "";
+	private static ArrayList<String> files = new ArrayList<>();
+	private static String code = "";
+	private static File _afile;
+	private static String _afile_name = "";
 	private static int line = 1;
+
+	public static int errors = 0;
+	public static int warnings = 0;
 
 	public static void main(String[] args)
 	{
@@ -43,7 +46,13 @@ public class Main
 				System.out.println("MAIN: Processing " + arg + " ...");
 				code = _read_file(arg);
 
-				Parser.parse(Tokenizer.tokenize(code));
+				if (Parser.parse(Tokenizer.tokenize(code)) > 0)
+				{
+					if (errors > 0 || warnings > 0)
+						System.out.println("Build of "+arg+" cancelled with "+errors+" errors and "+warnings+" warnings.");
+					continue;
+				}
+
 				code = Parser.code;
 
 				code = code.replace("~\\n~", "\n");
@@ -64,7 +73,7 @@ public class Main
 					_of = _of + ".out.html";
 				}
 
-				System.out.println("MAIN: Saved in: " + _of + "!");
+				System.out.println("Build of "+arg+" finished. Saved in \"" + _of + "\".");
 
 				try
 				{
@@ -75,7 +84,11 @@ public class Main
 				catch (IOException e)
 				{
 					System.out.println("MAIN: Error: You don't have writing permissions!");
+					errors++;
 				}
+
+				if (errors > 0 || warnings > 0)
+					System.out.println("Build of "+arg+" cancelled with "+errors+" errors and "+warnings+" warnings.");
 			}
 		}
 	}
@@ -92,6 +105,7 @@ public class Main
 			if (file.isDirectory())
 			{
 				System.out.println("FILE_READER: Error: The \""+file.getName()+"\" is a directory!");
+				errors++;
 				return "";
 			}
 
@@ -115,11 +129,13 @@ public class Main
 		catch (FileNotFoundException e)
 		{
 			System.out.println("FILE_READER: Error: File "+file.getName()+" not found!");
+			errors++;
 			return "";
 		}
 		catch (IOException e)
 		{
 			System.out.println("FILE_READER: Error: You don't have reading permissions!");
+			errors++;
 			return "";
 		}
 
@@ -158,6 +174,7 @@ public class Main
 				else
 				{
 					System.out.println("PRAE: ERROR: NO VALUE!\nLINE: "+Main.line);
+					errors++;
 				}
 
 				if (attr.equalsIgnoreCase("inc"))

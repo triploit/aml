@@ -1,5 +1,6 @@
 package io.github.triploit.parser;
 
+import io.github.triploit.Main;
 import io.github.triploit.parser.token.Token;
 import io.github.triploit.parser.token.TokenType;
 
@@ -12,7 +13,7 @@ public class Parser
 	private static int line = 1;
 	public static String code = "";
 
-	public static void parse(final ArrayList<Token> tokens)
+	public static int parse(final ArrayList<Token> tokens)
 	{
 		code = "";
 		Token[] toks = new Token[tokens.size()];
@@ -55,7 +56,7 @@ public class Parser
 
 				if (!attr.endsWith(":"))
 				{
-					error("Syntaxerror!");
+					return error("Syntaxerror!");
 				}
 				else
 				{
@@ -72,7 +73,7 @@ public class Parser
 				brace++;
 
 				if (tags.size() == 0)
-					error("Syntax Error! Missing Tag!?");
+					return error("Syntax Error! Missing Tag!?");
 
 				String tag = tags.get(tags.size() - 1);
 
@@ -152,7 +153,7 @@ public class Parser
 				String tag = tags.get(tags.size() - 1);
 
 				if (tags.size() == 0)
-					return;
+					return 0;
 
 				if (!code.endsWith("\n"))
 					code = code + "\n";
@@ -165,7 +166,7 @@ public class Parser
 			else if (toks[i].getType() == TokenType.TOKEN_TYPES.WORD)
 			{
 				if (toks[i].getValue().length() < 2)
-					return;
+					return 0;
 
 				String word = toks[i].getValue().substring(1, toks[i].getValue().length() - 1);
 				word = word.replace("\\\"", "\"");
@@ -177,12 +178,14 @@ public class Parser
 		}
 
 		if (parenthis != 0)
-			error("You forgot to close/open a parenthis!");
+			return error("You forgot to close/open a parenthis!");
 
 		if (brace < 0)
-			error("You have to few \"{\" !");
+			return error("You have to few \"{\" !");
 		else if (brace > 0)
-			error("You have to few  \"}\" !");
+			return error("You have to few  \"}\" !");
+
+		return 0;
 	}
 
 	private static int ignore_spaces(Token[] toks, int i)
@@ -205,10 +208,11 @@ public class Parser
 		return code;
 	}
 
-	public static void error(String msg)
+	public static int error(String msg)
 	{
 		System.out.println("Error --: " + msg);
 		System.out.println("Line ---: " + line);
-		System.exit(1);
+		Main.errors++;
+		return 1;
 	}
 }
