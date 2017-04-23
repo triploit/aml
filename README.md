@@ -47,40 +47,43 @@ Das wars! "aml" kann man nun von der Konsole aus aufrufen.
 
 ## Hello-World in AML and HTML
 
-    html
+```go
+html
+{
+    head
     {
-        head
+        style
         {
-            style
+            div.container
             {
-                div.container
-                {
-                    color: green;
-                    font-size: 20px;
-                }
-            }
-        }
-
-        body
-        {
-            script
-            {
-                for (i = 1;i <= 10;i++)
-                {
-                    alert("Hello: "+i+"/10");
-                }
-            }
-
-            div (class: "container")
-            {
-                "Hello World\nHi!\n"
-                "d"
+                color: green;
+                font-size: 20px;
             }
         }
     }
+
+    body
+    {
+        script
+        {
+            for (i = 1;i <= 10;i++)
+            {
+                alert("Hello: "+i+"/10");
+            }
+        }
+
+        div (class: "container")
+        {
+            "Hello World\nHi!\n"
+            "d"
+        }
+    }
+}
+```
     
 That will produce this HTML code:
 
+```html
     <html>
 
         <head>
@@ -119,5 +122,5 @@ That will produce this HTML code:
         </body>
 
     </html>
-
+```
 
