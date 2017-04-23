@@ -46,12 +46,17 @@ public class Main
 				/* System.out.println("[]=====================[ CODE BEGIN: "+arg+" ]=====================[]");
 				System.out.println(code);
 				System.out.println("[]=====================[ CODE END: "+arg+" ]=====================[]"); */
-
-				System.out.println("MAIN: Saved in: "+arg+".out.html!");
+String _of = arg;
+				if (_of.contains(".aml"))
+					_of = _of.replace(".aml", ".html");
+				else
+					_of = _of+".out.html";
+				
+				System.out.println("MAIN: Saved in: "+_of+!");
 
 				try
 				{
-					BufferedWriter bw = new BufferedWriter(new FileWriter(arg+".out.html"));
+					BufferedWriter bw = new BufferedWriter(new FileWriter(_of));
 					bw.write(code);
 					bw.close();
 				}
