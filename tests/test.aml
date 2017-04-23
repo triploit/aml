@@ -27,12 +27,11 @@ html
         script
         {
             #!(inc: t1.js)
-            #!(inc: t1.js)
         }
 
         div (class: "container")
         {
-            "Hello World\n"
+            "Hello World\nHi!\n"
             "d"
         }
     }

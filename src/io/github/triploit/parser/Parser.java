@@ -138,11 +138,11 @@ public class Parser
 					}
 
 					if (tag.equalsIgnoreCase("php")) code = code + "?>\n";
-					else code = code + "</" + tag + ">\n";
+					else code = code + "</" + tag + ">\n\n";
 					tags.remove(tags.size() - 1);
 				}
 				else
-					code = code + "<" + tag + attributes + ">\n";
+					code = code + "<" + tag + attributes + ">\n\n";
 
 				attributes = "";
 			}
@@ -159,7 +159,7 @@ public class Parser
 
 				code = tab(code, tags.size());
 
-				code = code + "</" + tag + ">\n";
+				code = code + "</" + tag + ">\n\n";
 				tags.remove(tags.size() - 1);
 			}
 			else if (toks[i].getType() == TokenType.TOKEN_TYPES.WORD)

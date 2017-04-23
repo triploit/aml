@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="AML.jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/AML_jar</output-path>
+    <root id="archive" name="AML.jar">
+      <element id="module-output" name="aml" />
+    </root>
+  </artifact>
+</component>
