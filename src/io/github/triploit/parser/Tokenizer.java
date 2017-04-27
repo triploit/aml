@@ -86,7 +86,7 @@ public class Tokenizer
 					tmp = ""+code.charAt(i);
 
                     if (tmp != null &&
-                            tmp.length() != 0 &&
+                            tmp.length() > 0 &&
                             tmp != "" &&
                             !tmp.isEmpty())
 					    tokens.add((new Token(TokenType.getRightType(tmp), tmp)));
