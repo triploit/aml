@@ -35,7 +35,7 @@ public class Main
 			{
 				if (arg.equalsIgnoreCase("-v"))
 				{
-					System.out.println("AML 0.0.1");
+					System.out.println("AML 0.0.2");
 					continue;
 				}
 
