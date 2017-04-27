@@ -27,9 +27,6 @@ public class TokenType
 		if (!value.equals(" ") || value.length() != 1)
 			value = value.trim();
 
-		if (value == "" || value.isEmpty())
-			return TOKEN_TYPES.WORD;
-
 		if ((value.startsWith("\"") && value.endsWith("\"")) ||
 				(value.startsWith("\'") && value.endsWith("\'")) )
 			return TOKEN_TYPES.WORD;

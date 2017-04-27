@@ -79,11 +79,18 @@ public class Tokenizer
 				{
 					if (tmp != null &&
 							tmp.length() != 0 &&
-							tmp != "")
+							tmp != "" &&
+							!tmp.isEmpty())
 						tokens.add((new Token(TokenType.getRightType(tmp), tmp)));
 
 					tmp = ""+code.charAt(i);
-					tokens.add((new Token(TokenType.getRightType(tmp), tmp)));
+
+                    if (tmp != null &&
+                            tmp.length() != 0 &&
+                            tmp != "" &&
+                            !tmp.isEmpty())
+					    tokens.add((new Token(TokenType.getRightType(tmp), tmp)));
+
 					tmp = "";
 				}
 				else if (isSpecial(code.charAt(i)))
