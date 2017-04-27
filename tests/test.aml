@@ -2,22 +2,6 @@ html
 {
     head
     {
-        title { "CampusTimes" }
-        meta(charset: "utf-8"){}
-        meta(name: "viewport", content: "width=device-width, initial-scale=1"){}
-
-        link (href: "//fonts.googleapis.com/css?family=Raleway:400,300,600"){}
-        link (rel: "stylesheet", href: "css/normalize.css"){}
-        link (rel: "stylesheet", href: "css/skeleton.css"){}
-        link (rel: "icon", type: "image/png", href: "images/favicon.png"){}
-
-        script (src: "js/prism.js"){}
-        link (rel: "stylesheet", href: "css/prism.css"){}
-        link (rel: "stylesheet", href: "css/global.css"){}
-
-
-		script (type: "text/javascript", src: "/js/jquery/jquery-1.8.2.min.js") {}
-
         style
         {
             div.logo
@@ -25,106 +9,30 @@ html
                 width: 800px;
             }
 
-            div.column
+            div.one-half
             {
                 margin-top: 7%;
-                font-size: 19px;
+            }
+
+            div.container
+            {
+                color: green;
+                font-size: 20px;
             }
         }
     }
 
     body
     {
-        div (class: "container")
-        {
-            div (class: "row")
-            {
-                h1 { "CampusTimes" }
-            }
-
-            div (class: "line") {}
-        }
-
-
-        div(class: "container")
-        {
-            div (class: "row")
-            {
-                div (id: "nav")
-                {
-
-                }
-            }
-        }
-
-        div (class: "container")
-        {
-            div (class: "row")
-            {
-                div (class: "column")
-                {
-                    h4 { "Wir sind die CampusTimes!" }
-
-                    p
-                    {"
-                        Wir sind die CampusTimes, die Schülerzeitung des
-                        RecknitzCampus Laage.
-                        Jeden Donnerstag von 12:15 - 13:35 Uhr und in unserer
-                        Freizeit arbeiten wir hart an der jeweils nächsten Ausgabe!\n\n
-                        Auf dieser Seite könnt ihr alte Ausgaben als PDF-Dateien
-                        anschauen oder uns erreichen um uns eure Ideen oder euer
-                        FeedBack zu zeigen!\n
-                    "}
-
-                    h4 { "Hinterlasst uns eine Nachricht" }
-
-                    p
-                    {"
-                        Bitte füllt das folgende Formular aus.
-                    "}
-
-                    form
-                    {
-                        div (class: "row")
-                        {
-                            div(class: "column")
-                            {
-                                label (for: "email_input") { "Deine E-Mail, damit wir dir Antworten können." }
-                                input (class: "u-full-width", type: "email", placeholder: "maxmuster@example.com", id: "email_input") {}
-                            }
-
-                            label (for: "message_input") { "Nachricht" }
-                            textarea (class: "u-full-width", placeholder: "Hallo CampusTimes...", id: "message_input") {}
-                            input (class: "button-primary", type: "submit", value: "Absenden") {}
-                        }
-                    }
-                }
-            }
-        }
-
-        footer
-        {
-            div (class: "container")
-            {
-                div (class: "row")
-                {
-                    div (class: "column")
-                    {
-                        h6 { a (href: "about.html") { "Impressum" } }
-                        br{}
-                    }
-                }
-            }
-        }
-
-
-
         script
         {
-			$(document).ready(
-            function() {
-	               alert("Hi");
-			});
+            #!(inc: t1.js)
+        }
+
+        div (class: "container")
+        {
+            "Hello World\nHi!\n"
+            "d"
         }
     }
 }
