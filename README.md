@@ -54,8 +54,7 @@ html
     {
         style
         {
-            div.container
-            {
+            div.container {
                 color: green;
                 font-size: 20px;
             }
@@ -89,14 +88,6 @@ That will produce this HTML code:
         <head>
 
             <style>			
-                div.logo {
-                    width: 800px;
-                }
-
-                div.one-half {
-                    margin-top: 7%;
-                }
-
                 div.container {
                     color: green;
                     font-size: 20px;
