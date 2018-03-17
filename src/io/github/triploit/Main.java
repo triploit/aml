@@ -19,6 +19,7 @@ public class Main
 	public static File _afile;
 	private static String _afile_name = "";
 	public static Parser parser = new Parser();
+	public static String curdir = "";
 
 	public static int line = 1;
 	public static int errors = 0;
@@ -46,6 +47,10 @@ public class Main
 				Main.line = 1;
 
 				System.out.println("MAIN: Processing " + arg + " ...");
+				File f = new File(arg);
+				curdir = f.getAbsolutePath().substring(0, f.getAbsolutePath().length()-f.getName().length());
+
+				System.out.println(curdir);
 				code = _read_file(arg);
 
 				if (parser.parse(Tokenizer.tokenize(code)) > 0)
@@ -217,11 +222,11 @@ public class Main
 				{
 					if (System.getProperty("os.name").startsWith("Windows"))
 					{
-						val = _afile.getAbsolutePath().substring(0, _afile.getAbsolutePath().length() - _afile_name.split("/")[_afile_name.split("/").length - 1].length() - 1) + "\\" + val;
+						val = curdir + "\\" + val;
 					}
 					else
 					{
-						val = _afile.getAbsolutePath().substring(0, _afile.getAbsolutePath().length() - _afile_name.split("/")[_afile_name.split("/").length - 1].length() - 1) + "/" + val;
+						val = curdir + "/" + val;
 					}
 
 					if (!(new File(val)).exists())
@@ -230,25 +235,6 @@ public class Main
 						errors++;
 					}
 					else code = code + _read_file(val);
-				}
-				else if (attr.equalsIgnoreCase("inc_aml"))
-				{
-
-					if (System.getProperty("os.name").startsWith("Windows"))
-					{
-						val = _afile.getAbsolutePath().substring(0, _afile.getAbsolutePath().length() - _afile_name.split("/")[_afile_name.split("/").length - 1].length() - 1) + "\\" + val;
-					}
-					else
-					{
-						val = _afile.getAbsolutePath().substring(0, _afile.getAbsolutePath().length() - _afile_name.split("/")[_afile_name.split("/").length - 1].length() - 1) + "/" + val;
-					}
-
-					if (!(new File(val)).exists())
-					{
-						System.out.println("PRAE: ERROR: FILE NOT FOUND: \""+val+"\"\nLINE: "+Main.line);
-						errors++;
-					}
-					else code = code + parse_aml_file(_read_file(val));
 				}
 
 				continue;
