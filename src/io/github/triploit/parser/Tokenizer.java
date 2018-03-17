@@ -32,8 +32,8 @@ public class Tokenizer
 					{
 
 						if (tmp != null &&
-								tmp.length() != 0 &&
-								tmp != "")
+							tmp.length() != 0 &&
+							tmp != "")
 							tokens.add((new Token(TokenType.TOKEN_TYPES.STRING, tmp)));
 
 						tmp = "";
@@ -85,11 +85,11 @@ public class Tokenizer
 
 					tmp = ""+code.charAt(i);
 
-                    if (tmp != null &&
-                            tmp.length() > 0 &&
-                            tmp != "" &&
-                            !tmp.isEmpty())
-					    tokens.add((new Token(TokenType.getRightType(tmp), tmp)));
+					if (tmp != null &&
+							tmp.length() > 0 &&
+							tmp != "" &&
+							!tmp.isEmpty())
+						tokens.add((new Token(TokenType.getRightType(tmp), tmp)));
 
 					tmp = "";
 				}

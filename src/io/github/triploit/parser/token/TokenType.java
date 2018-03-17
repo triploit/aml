@@ -29,7 +29,7 @@ public class TokenType
 			value = value.trim();
 
 		if (value.isEmpty())
-		    return TOKEN_TYPES.IGNORE;
+			return TOKEN_TYPES.IGNORE;
 
 		if ((value.startsWith("\"") && value.endsWith("\"")) ||
 				(value.startsWith("\'") && value.endsWith("\'")) )
