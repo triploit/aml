@@ -1,36 +1,27 @@
-html
-{
-    head
-    {
-        style
-        {
-            div.logo
-            {
+html {
+    head {
+        style {
+            div.logo {
                 width: 800px;
             }
 
-            div.one-half
-            {
+            div.one-half {
                 margin-top: 7%;
             }
 
-            div.container
-            {
+            div.container {
                 color: green;
                 font-size: 20px;
             }
         }
     }
 
-    body
-    {
-        script
-        {
+    body {
+        script {
             #!(inc: t1.js)
         }
 
-        div (class: "container")
-        {
+        div (class: "container") {
             "Hello World\nHi!\n"
             "d"
         }
