@@ -34,7 +34,7 @@ public class Tokenizer
 						if (tmp != null &&
 								tmp.length() != 0 &&
 								tmp != "")
-							tokens.add((new Token(TokenType.TOKEN_TYPES.WORD, tmp)));
+							tokens.add((new Token(TokenType.TOKEN_TYPES.STRING, tmp)));
 
 						tmp = "";
 

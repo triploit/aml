@@ -1,9 +1,10 @@
 func install
 {
-    make all
-	sudo chmod +x aml
+	sudo make all
+    sudo chmod +x aml
 	sudo mv od/aml.jar /usr/bin/AML.jar
 	sudo mv aml /usr/bin/aml
+	sudo rm -rf od
 }
 
 func remove

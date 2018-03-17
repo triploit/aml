@@ -19,7 +19,8 @@ public class TokenType
 		NEW_LINE,
 		WORD,
 		COMMA,
-		IGNORE
+		IGNORE,
+		STRING
 	}
 
 	public static final TOKEN_TYPES getRightType(String value)

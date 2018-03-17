@@ -36,7 +36,7 @@ public class Main
             {
                 if (arg.equalsIgnoreCase("-v"))
                 {
-                    System.out.println("AML 0.0.2");
+                    System.out.println("AML 0.1.3");
                     continue;
                 }
 
@@ -74,10 +74,17 @@ public class Main
                     _of = _of + ".out.html";
                 }
 
+				if (errors > 0 || warnings > 0)
+				{
+					System.out.println("Build of "+arg+" cancelled with "+errors+" errors and "+warnings+" warnings.");
+					System.exit(1);
+				}
+
                 System.out.println("Build of "+arg+" finished. Saved in \"" + _of + "\".");
 
                 try
                 {
+
                     BufferedWriter bw = new BufferedWriter(new FileWriter(_of));
                     bw.write(code);
                     bw.close();
@@ -87,9 +94,6 @@ public class Main
                     System.out.println("MAIN: Error: You don't have writing permissions!");
                     errors++;
                 }
-
-                if (errors > 0 || warnings > 0)
-                    System.out.println("Build of "+arg+" cancelled with "+errors+" errors and "+warnings+" warnings.");
             }
         }
     }
@@ -162,21 +166,28 @@ public class Main
                 while (t.get(i).getType() == TokenType.TOKEN_TYPES.IGNORE)
                 {
                     i++;
-                }
+				}
 
                 if (t.get(i).getType() == TokenType.TOKEN_TYPES.TAG)
                 {
                     val = t.get(i).getValue();
                 }
+                else if (t.get(i).getType() == TokenType.TOKEN_TYPES.STRING)
+				{
+					val = t.get(i).getValue();
+				}
                 else if (t.get(i).getType() == TokenType.TOKEN_TYPES.WORD)
                 {
-                    val = t.get(i).getValue().substring(2, t.get(i).getValue().length());
+					val = t.get(i).getValue();
                 }
                 else
                 {
                     System.out.println("PRAE: ERROR: NO VALUE!\nLINE: "+Main.line);
                     errors++;
                 }
+
+				if (val.startsWith("\"") && val.endsWith("\""))
+					val = val.substring(1, val.length()-1);
 
                 if (attr.equalsIgnoreCase("inc"))
                 {
@@ -189,7 +200,12 @@ public class Main
                         val = _afile.getAbsolutePath().substring(0, _afile.getAbsolutePath().length() - _afile_name.split("/")[_afile_name.split("/").length - 1].length() - 1) + "/" + val;
                     }
 
-                    code = code + _read_file(val);
+                    if (!(new File(val)).exists())
+					{
+						System.out.println("PRAE: ERROR: FILE NOT FOUND: \""+val+"\"\nLINE: "+Main.line);
+						errors++;
+					}
+                    else code = code + _read_file(val);
                 }
 
                 continue;
