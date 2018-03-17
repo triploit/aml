@@ -4,16 +4,17 @@ import io.github.triploit.Main;
 import io.github.triploit.parser.token.Token;
 import io.github.triploit.parser.token.TokenType;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class Parser
 {
-	private static ArrayList<String> tags = new ArrayList<>();
-	private static String attributes = "";
-	private static int line = 1;
-	public static String code = "";
+	public ArrayList<String> tags = new ArrayList<>();
+	public String attributes = "";
+	private int line = 1;
+	public String code = "";
 
-	public static int parse(final ArrayList<Token> tokens)
+	public int parse(final ArrayList<Token> tokens)
 	{
 		code = "";
 		Token[] toks = new Token[tokens.size()];
@@ -23,13 +24,14 @@ public class Parser
 		boolean php = false;
 		int brace = 0;
 		int parenthis = 0;
+		String _word = "";
 
 		for (int i = 0; i < toks.length; i++)
 		{
 			if (toks[i].getType() == TokenType.TOKEN_TYPES.IGNORE)
 				continue;
 
-			// System.out.println("TOKEN: <"+toks[i].getValue()+", "+toks[i].getType()+">");
+			// System.out.println("TOKEN: <"+toks[i].getValue().replace("\n", "")+", "+toks[i].getType().toString()+">");
 
 			if (toks[i].getType() == TokenType.TOKEN_TYPES.NEW_LINE)
 			{
@@ -37,9 +39,37 @@ public class Parser
 				continue;
 			}
 
+			if (toks[i].getType() == TokenType.TOKEN_TYPES.WORD)
+			{
+				_word = toks[i].getValue();
+				continue;
+			}
+
 			if (toks[i].getType() == TokenType.TOKEN_TYPES.TAG)
 			{
 				tags.add(toks[i].getValue());
+			}
+			else if (toks[i].getType() == TokenType.TOKEN_TYPES.SEMICOLON)
+			{
+				String tag = tags.get(tags.size() - 1);
+
+				code = tab(code, tags.size());
+				code += "<"+tag+" "+attributes+">";
+
+				if (tags.size() == 0)
+					return 0;
+
+				if (!code.endsWith("\n"))
+					code = code + "\n";
+
+				code = tab(code, tags.size());
+				code = code + "</" + tag + ">\n";
+
+				tags.remove(tags.size() - 1);
+				attributes = "";
+
+				code = code + "\n";
+				Main.line++;
 			}
 			else if (toks[i].getType() == TokenType.TOKEN_TYPES.PARENTHIS_OPEN)
 			{
@@ -138,8 +168,8 @@ public class Parser
 						}
 					}
 
-					if (tag.equalsIgnoreCase("php")) code = code + "?>\n";
-					else code = code + "</" + tag + ">\n";
+					if (tag.equalsIgnoreCase("php")) code = code + "?>\n\n";
+					else code = code + "</" + tag + ">\n\n";
 					tags.remove(tags.size() - 1);
 				}
 				else
@@ -162,18 +192,23 @@ public class Parser
 
 				code = code + "</" + tag + ">\n";
 				tags.remove(tags.size() - 1);
+
+				code = code + "\n";
+				Main.line++;
 			}
-			else if (toks[i].getType() == TokenType.TOKEN_TYPES.WORD)
+			else if (toks[i].getType() == TokenType.TOKEN_TYPES.STRING)
 			{
 				if (toks[i].getValue().length() < 2)
 					return 0;
+
+				code = tab(code, tags.size()+1);
 
 				String word = toks[i].getValue().substring(1, toks[i].getValue().length() - 1);
 				word = word.replace("\\\"", "\"");
 				word = word.replace("\\t", "\t");
 
 				word = word.replace("\\n", "<br>");
-				code = code + word;
+				code = code + word + "\n";
 			}
 		}
 
@@ -188,7 +223,7 @@ public class Parser
 		return 0;
 	}
 
-	private static int ignore_spaces(Token[] toks, int i)
+	private int ignore_spaces(Token[] toks, int i)
 	{
 		for (; toks[i].getType() == TokenType.TOKEN_TYPES.IGNORE ||
 				toks[i].getValue().equals(" "); i++)
@@ -198,7 +233,7 @@ public class Parser
 		return i + 1;
 	}
 
-	private static String tab(String code, int size)
+	public String tab(String code, int size)
 	{
 		for (int c = 1; c < size; c++)
 		{
@@ -208,7 +243,7 @@ public class Parser
 		return code;
 	}
 
-	public static int error(String msg)
+	public int error(String msg)
 	{
 		System.out.println("Error --: " + msg);
 		System.out.println("Line ---: " + line);

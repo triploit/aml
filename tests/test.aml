@@ -1,5 +1,7 @@
 html {
 	head {
+		style(src: "test.css");
+
 		style {
 			div.logo {
 				width: 800px;
@@ -17,6 +19,8 @@ html {
 	}
 
 	body {
+		#!(inc: "lib.aml")
+
 		script {
 			#!(inc: "t1.js")
 		}
