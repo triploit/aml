@@ -213,24 +213,24 @@ public class Parser
 		return 0;
 	}
 
-	private int ignoreSpaces(Token[] toks, int i)
+	private int ignoreSpaces(Token[] toks, int index)
 	{
-		for (; toks[i].getType() == TokenType.TOKEN_TYPES.IGNORE ||
-				toks[i].getValue().equals(" "); i++)
+		for (; toks[index].getType() == TokenType.TOKEN_TYPES.IGNORE ||
+				toks[index].getValue().equals(" "); index++)
 		{
 		}
 
-		return i + 1;
+		return index + 1;
 	}
 
-	public String tab(String code, int size)
+	public String tab(String _code, int size)
 	{
 		for (int c = 1; c < size; c++)
 		{
-			code = code + "\t";
+			_code = _code + "\t";
 		}
 
-		return code;
+		return _code;
 	}
 
 	public int error(String msg)

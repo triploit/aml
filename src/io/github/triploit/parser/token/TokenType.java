@@ -101,13 +101,13 @@ public class TokenType
 				(value.startsWith("\'") && value.endsWith("\'")) )
 			return TOKEN_TYPES.WORD;
 
-		else if (value.equals("\n"))
+		else if (("\n").equals(value))
 			return TOKEN_TYPES.NEW_LINE;
 
-		else if (value.equals("{"))
+		else if (("{").equals(value))
 			return TOKEN_TYPES.BRACE_OPEN;
 
-		else if (value.equals("}"))
+		else if (("}").equals(value))
 			return TOKEN_TYPES.BRACE_CLOSE;
 
 		else if (value.endsWith(":") && value.length() > 1)
@@ -116,16 +116,16 @@ public class TokenType
 		else if (value.equalsIgnoreCase(";"))
 			return TOKEN_TYPES.SEMICOLON;
 
-		else if (value.equals("("))
+		else if (("(").equals(value))
 			return TOKEN_TYPES.PARENTHIS_OPEN;
 
-		else if (value.equals(")"))
+		else if ((")").equals(value))
 			return TOKEN_TYPES.PARENTHIS_CLOSE;
 
-		else if (value.equals(":"))
+		else if ((":").equals(value))
 			return TOKEN_TYPES.DOUBLE_POINT;
 
-		else if (value.equals(","))
+		else if ((",").equals(value))
 			return TOKEN_TYPES.COMMA;
 
 		else if (Tokenizer.isIgnore(value.charAt(0)))

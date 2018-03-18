@@ -52,7 +52,7 @@ public class Main
 				System.out.println(curdir);
 				code = readFile(arg);
 
-				if (parser.parse(Tokenizer.tokenize(code)) > 0 && errors > 0 || warnings > 0)
+				if (parser.parse(Tokenizer.tokenize(code)) > 0 && (errors > 0 || warnings > 0))
 				{
 					System.out.println("Build of "+arg+" cancelled with "+errors+" errors and "+warnings+" warnings.");
 					System.exit(1);
@@ -108,13 +108,10 @@ public class Main
 		String code = readFile(arg);
 		Parser p = new Parser();
 
-		if (p.parse(Tokenizer.tokenize(code)) > 0)
+		if (p.parse(Tokenizer.tokenize(code)) > 0 && (errors > 0 || warnings > 0))
 		{
-			if (errors > 0 || warnings > 0)
-			{
-				System.out.println("Build of "+arg+" cancelled with "+errors+" errors and "+warnings+" warnings.");
-				System.exit(1);
-			}
+			System.out.println("Build of "+arg+" cancelled with "+errors+" errors and "+warnings+" warnings.");
+			System.exit(1);
 		}
 
 		return p.code;

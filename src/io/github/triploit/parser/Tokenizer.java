@@ -4,7 +4,6 @@ import io.github.triploit.parser.token.Token;
 import io.github.triploit.parser.token.TokenType;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * Created by survari on 14.04.17.
