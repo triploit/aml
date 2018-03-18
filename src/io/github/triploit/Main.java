@@ -17,7 +17,6 @@ public class Main
 	private static ArrayList<String> files = new ArrayList<>();
 	private static String code = "";
 	public static File _afile;
-	private static String _afile_name = "";
 	public static Parser parser = new Parser();
 	public static String curdir = "";
 
@@ -51,15 +50,12 @@ public class Main
 				curdir = f.getAbsolutePath().substring(0, f.getAbsolutePath().length()-f.getName().length());
 
 				System.out.println(curdir);
-				code = _read_file(arg);
+				code = readFile(arg);
 
-				if (parser.parse(Tokenizer.tokenize(code)) > 0)
+				if (parser.parse(Tokenizer.tokenize(code)) > 0 && errors > 0 || warnings > 0)
 				{
-					if (errors > 0 || warnings > 0)
-					{
-						System.out.println("Build of "+arg+" cancelled with "+errors+" errors and "+warnings+" warnings.");
-						System.exit(1);
-					}
+					System.out.println("Build of "+arg+" cancelled with "+errors+" errors and "+warnings+" warnings.");
+					System.exit(1);
 					continue;
 				}
 
@@ -107,9 +103,9 @@ public class Main
 		}
 	}
 
-	public static String parse_aml_file(String arg)
+	public static String parseAMLFile(String arg)
 	{
-		String code = _read_file(arg);
+		String code = readFile(arg);
 		Parser p = new Parser();
 
 		if (p.parse(Tokenizer.tokenize(code)) > 0)
@@ -124,11 +120,10 @@ public class Main
 		return p.code;
 	}
 
-	public static String _read_file(String arg)
+	public static String readFile(String arg)
 	{
 		_afile = (new File(arg));
 		File file = _afile;
-		_afile_name = arg;
 		code = "";
 
 		try
@@ -147,7 +142,7 @@ public class Main
 			{
 				if (line.trim().startsWith("#!"))
 				{
-					_prae_command(Tokenizer.tokenize(line.trim().substring(2, line.trim().length())));
+					praeCommand(Tokenizer.tokenize(line.trim().substring(2, line.trim().length())));
 				}
 				else
 				{
@@ -176,7 +171,7 @@ public class Main
 		return code;
 	}
 
-	public static void _prae_command(ArrayList<Token> t)
+	public static void praeCommand(ArrayList<Token> t)
 	{
 		for (int i = 0; i < t.size(); i++)
 		{
@@ -234,7 +229,7 @@ public class Main
 						System.out.println("PRAE: ERROR: FILE NOT FOUND: \""+val+"\"\nLINE: "+Main.line);
 						errors++;
 					}
-					else code = code + _read_file(val);
+					else code = code + readFile(val);
 				}
 
 				continue;

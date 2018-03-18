@@ -4,7 +4,6 @@ import io.github.triploit.Main;
 import io.github.triploit.parser.token.Token;
 import io.github.triploit.parser.token.TokenType;
 
-import java.io.File;
 import java.util.ArrayList;
 
 public class Parser
@@ -20,11 +19,8 @@ public class Parser
 		Token[] toks = new Token[tokens.size()];
 		toks = tokens.toArray(toks);
 
-		boolean script = false;
-		boolean php = false;
 		int brace = 0;
 		int parenthis = 0;
-		String _word = "";
 
 		for (int i = 0; i < toks.length; i++)
 		{
@@ -36,12 +32,6 @@ public class Parser
 			if (toks[i].getType() == TokenType.TOKEN_TYPES.NEW_LINE)
 			{
 				line++;
-				continue;
-			}
-
-			if (toks[i].getType() == TokenType.TOKEN_TYPES.WORD)
-			{
-				_word = toks[i].getValue();
 				continue;
 			}
 
@@ -90,7 +80,7 @@ public class Parser
 				}
 				else
 				{
-					i = ignore_spaces(toks, i);
+					i = ignoreSpaces(toks, i);
 					value = toks[i + 1].getValue();
 
 					attributes = attributes + " " + attr.replace(":", "") + "=" + value + "";
@@ -129,13 +119,13 @@ public class Parser
 						if (toks[i].getType() == TokenType.TOKEN_TYPES.IGNORE)
 						{
 							code += toks[i].getValue();
-							i = ignore_spaces(toks, i) - 1;
+							i = ignoreSpaces(toks, i) - 1;
 						}
 
 						if (toks[i].getValue().equals("\n"))
 						{
 							i++;
-							i = ignore_spaces(toks, i) - 1;
+							i = ignoreSpaces(toks, i) - 1;
 							code += "\n";
 
 							if (toks[i].getType() == TokenType.TOKEN_TYPES.BRACE_CLOSE)
@@ -223,7 +213,7 @@ public class Parser
 		return 0;
 	}
 
-	private int ignore_spaces(Token[] toks, int i)
+	private int ignoreSpaces(Token[] toks, int i)
 	{
 		for (; toks[i].getType() == TokenType.TOKEN_TYPES.IGNORE ||
 				toks[i].getValue().equals(" "); i++)
