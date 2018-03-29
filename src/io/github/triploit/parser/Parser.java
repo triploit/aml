@@ -1,6 +1,6 @@
 package io.github.triploit.parser;
 
-import io.github.triploit.Main;
+import io.github.triploit.AML;
 import io.github.triploit.parser.token.Token;
 import io.github.triploit.parser.token.TokenType;
 
@@ -59,7 +59,7 @@ public class Parser
 				attributes = "";
 
 				code = code + "\n";
-				Main.line++;
+				AML.line++;
 			}
 			else if (toks[i].getType() == TokenType.TOKEN_TYPES.PARENTHIS_OPEN)
 			{
@@ -184,7 +184,7 @@ public class Parser
 				tags.remove(tags.size() - 1);
 
 				code = code + "\n";
-				Main.line++;
+				AML.line++;
 			}
 			else if (toks[i].getType() == TokenType.TOKEN_TYPES.STRING)
 			{
@@ -237,7 +237,7 @@ public class Parser
 	{
 		System.out.println("Error --: " + msg);
 		System.out.println("Line ---: " + line);
-		Main.errors++;
+		AML.errors++;
 		return 1;
 	}
 }

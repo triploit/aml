@@ -50,7 +50,7 @@ public class AML
 	{
 		code = "";
 		files.clear();
-		Main.line = 1;
+		AML.line = 1;
 
 		System.out.println("MAIN: Processing " + arg + " ...");
 		File f = new File(arg);
@@ -152,14 +152,14 @@ public class AML
 					code = code + line + "\n";
 				}
 
-				Main.line++;
+				AML.line++;
 			}
 
 		}
 		catch (FileNotFoundException e)
 		{
 			System.out.println("FILE_READER: Error: File "+file.getName()+" not found!");
-			System.out.println("(LINE: "+Main.line+")");
+			System.out.println("(LINE: "+AML.line+")");
 			errors++;
 			return "";
 		}
@@ -208,7 +208,7 @@ public class AML
 				}
 				else
 				{
-					System.out.println("PRAE: ERROR: NO VALUE!\nLINE: "+Main.line);
+					System.out.println("PRAE: ERROR: NO VALUE!\nLINE: "+AML.line);
 					errors++;
 				}
 
@@ -228,7 +228,7 @@ public class AML
 
 					if (!(new File(val)).exists())
 					{
-						System.out.println("PRAE: ERROR: FILE NOT FOUND: \""+val+"\"\nLINE: "+Main.line);
+						System.out.println("PRAE: ERROR: FILE NOT FOUND: \""+val+"\"\nLINE: "+AML.line);
 						errors++;
 					}
 					else code = code + readFile(val);
