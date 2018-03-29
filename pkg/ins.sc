@@ -1,5 +1,4 @@
-func install
-{
+func install {
 	sudo make all
 	sudo chmod +x aml
 	sudo mv od/aml.jar /usr/bin/AML.jar
@@ -7,13 +6,11 @@ func install
 	sudo rm -rf od
 }
 
-func remove
-{
+func remove {
 	sudo rm /usr/bin/AML.jar
 	sudo rm /usr/bin/aml
 }
 
-func update
-{
+func update {
 	&install
 }

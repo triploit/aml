@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * Created by survari on 14.04.17.
  */
  
-public class Main
+public class AML
 {
 	private static ArrayList<String> files = new ArrayList<>();
 	private static String code = "";
@@ -37,69 +37,74 @@ public class Main
 			{
 				if (arg.equalsIgnoreCase("-v"))
 				{
-					System.out.println("AML 0.1.3");
+					System.out.println("AML 0.1.4");
 					continue;
 				}
 
-				code = "";
-				files.clear();
-				Main.line = 1;
-
-				System.out.println("MAIN: Processing " + arg + " ...");
-				File f = new File(arg);
-				curdir = f.getAbsolutePath().substring(0, f.getAbsolutePath().length()-f.getName().length());
-
-				System.out.println(curdir);
-				code = readFile(arg);
-
-				if (parser.parse(Tokenizer.tokenize(code)) > 0 && (errors > 0 || warnings > 0))
-				{
-					System.out.println("Build of "+arg+" cancelled with "+errors+" errors and "+warnings+" warnings.");
-					System.exit(1);
-					continue;
-				}
-
-				code = parser.code;
-
-				code = code.replace("~\\n~", "\n");
-				code = code.replace("~<br>~", "\n");
-				code = code.replace("~\\t~", "\t");
-
-				/* System.out.println("[]=====================[ CODE BEGIN: "+arg+" ]=====================[]");
-				System.out.println(code);
-				System.out.println("[]=====================[ CODE END: "+arg+" ]=====================[]"); */
-				String _of = arg;
-
-				if (_of.contains(".aml"))
-				{
-					_of = _of.replace(".aml", ".html");
-				}
-				else
-				{
-					_of = _of + ".out.html";
-				}
-
-				if (errors > 0 || warnings > 0)
-				{
-					System.out.println("Build of "+arg+" cancelled with "+errors+" errors and "+warnings+" warnings.");
-					System.exit(1);
-				}
-
-				System.out.println("Build of "+arg+" finished. Saved in \"" + _of + "\".");
-
-				try
-				{
-
-					BufferedWriter bw = new BufferedWriter(new FileWriter(_of));
-					bw.write(code);
-					bw.close();
-				}
-				catch (IOException e)
-				{
-					System.out.println("MAIN: Error: You don't have writing permissions!");
-					errors++;
-				}
+				compileFile(arg);
 			}
+		}
+	}
+
+	public static void compileFile(String arg)
+	{
+		code = "";
+		files.clear();
+		Main.line = 1;
+
+		System.out.println("MAIN: Processing " + arg + " ...");
+		File f = new File(arg);
+		curdir = f.getAbsolutePath().substring(0, f.getAbsolutePath().length()-f.getName().length());
+
+		System.out.println(curdir);
+		code = readFile(arg);
+
+		if (parser.parse(Tokenizer.tokenize(code)) > 0 && (errors > 0 || warnings > 0))
+		{
+			System.out.println("Build of "+arg+" cancelled with "+errors+" errors and "+warnings+" warnings.");
+			System.exit(1);
+			return;
+		}
+
+		code = parser.code;
+
+		code = code.replace("~\\n~", "\n");
+		code = code.replace("~<br>~", "\n");
+		code = code.replace("~\\t~", "\t");
+
+		/* System.out.println("[]=====================[ CODE BEGIN: "+arg+" ]=====================[]");
+		System.out.println(code);
+		System.out.println("[]=====================[ CODE END: "+arg+" ]=====================[]"); */
+		String _of = arg;
+
+		if (_of.contains(".aml"))
+		{
+			_of = _of.replace(".aml", ".html");
+		}
+		else
+		{
+			_of = _of + ".out.html";
+		}
+
+		if (errors > 0 || warnings > 0)
+		{
+			System.out.println("Build of "+arg+" cancelled with "+errors+" errors and "+warnings+" warnings.");
+			System.exit(1);
+		}
+
+		System.out.println("Build of "+arg+" finished. Saved in \"" + _of + "\".");
+
+		try
+		{
+
+			BufferedWriter bw = new BufferedWriter(new FileWriter(_of));
+			bw.write(code);
+			bw.close();
+		}
+		catch (IOException e)
+		{
+			System.out.println("MAIN: Error: You don't have writing permissions!");
+			errors++;
 		}
 	}
 
