@@ -1,2 +1,2 @@
 #!/bin/bash
-java -jar /usr/bin/AML.jar $@
+java -jar /usr/bin/AML.jar "$@"
