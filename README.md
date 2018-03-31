@@ -2,7 +2,7 @@
 Another markup language.
 
 ## Installation - EN/US
-AML is realy easy to install. With SecPM you can install the package with:
+AML is really easy to install. With SecPM you can install the package with:
 
     sudo secpm install aml
 
@@ -19,7 +19,7 @@ Then give aml execution permissions:
 AML is now callable from the terminal.
 
 For Windows, move ...
-* aml.bat to C:\Windows\System32 verschieben
+* aml.bat to C:\Windows\System32
 * out/artifacts/AML_jar/AML.jar to C:\Windows\System32
 
 That's it! AML is now callable from the command line.
