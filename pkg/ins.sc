@@ -1,3 +1,7 @@
+user triploit
+name aml
+ver 0.1.4.0
+
 func install {
 	sudo make all
 	sudo chmod +x aml
