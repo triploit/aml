@@ -6,8 +6,7 @@ AML is really easy to install. With SecPM you can install the package with:
 
     sudo secpm install aml
 
-Um AML ohne SecPM zu installieren, einfach folgende Dateien verschieben (Linux):
-To install AML without SecPM, move ...
+To install AML without SecPM (Linux), move ...
 
 * aml to /usr/bin/
 * out/artifacts/AML_jar/AML.jar to /usr/bin/  
