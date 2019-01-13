@@ -8,4 +8,4 @@ authors:
 
 products:
     - ./od/aml.jar: "/usr/bin/AML.jar"
-	  - ./aml: "/usr/bin/aml"
+    - ./aml: "/usr/bin/aml"
