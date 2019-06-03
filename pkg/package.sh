@@ -1,4 +1,4 @@
 function build {
+    chmod +x aml
     make all
-	  chmod +x aml
 }
