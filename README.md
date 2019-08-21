@@ -2,9 +2,9 @@
 Another markup language.
 
 ## Installation - EN/US
-AML is really easy to install. With SecPM you can install the package with:
+AML is really easy to install. With Tridymite you can install the package with:
 
-    sudo secpm install aml
+    tridy -i triploit:aml
 
 To install AML without SecPM (Linux), move ...
 
@@ -24,9 +24,9 @@ For Windows, move ...
 That's it! AML is now callable from the command line.
 
 ## Installation - DE
-AML ist recht einfach zu installieren, mit SecPM könnt ihr einfach das Package "aml" installieren.
+AML ist recht einfach zu installieren, mit Tridymite könnt ihr einfach das Package "aml" installieren.
 
-    sudo secpm install aml
+    tridy -i triploit:aml
 
 Um AML ohne SecPM zu installieren, einfach folgende Dateien verschieben (Linux):
 * aml nach /usr/bin/
